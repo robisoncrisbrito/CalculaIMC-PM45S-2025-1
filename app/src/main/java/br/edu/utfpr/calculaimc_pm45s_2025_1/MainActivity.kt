@@ -65,16 +65,27 @@ class MainActivity : AppCompatActivity() {
 
         var imc = 0.0
 
-        if ( ! Locale.getDefault().language.equals( "en") ) {
-            imc = peso / altura.pow( 2 )
-
-        } else {
-            imc = 703 * ( peso / altura.pow( 2 ) )
-        }
+        imc = calculaIMC(
+            peso,
+            altura,
+            Locale.getDefault().language
+        )
 
         val numberFormat = NumberFormat.getNumberInstance( Locale.getDefault() )
         val df = numberFormat as DecimalFormat
         tvResultado.text = df.format( imc )
     }
+
+    companion object {
+
+        fun calculaIMC( peso : Double, altura : Double, locale : String ) : Double {
+            if ( locale.equals( "en") ) {
+                return 703 * ( peso / altura.pow( 2 ) )
+            } else {
+                return peso / altura.pow( 2 )
+            }
+        } //fim do calculaIMC
+
+    } // fim do companion object
 
 } // fim da MainActivity
